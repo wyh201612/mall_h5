@@ -1,54 +1,56 @@
 <template>
     <div class="goldenDetails dashboard-container flex flex-direction">
-        <div class="header">
-            <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
-                <template #left>
-                    <img src="../../assets/images/back.png" alt="" class="back-icon">
-                </template>
-                <template #title>
-                    <span class="text-sm text-darkGray">使用明细</span>
-                </template>
-            </van-nav-bar>
-        </div>
-        <div class="contaier margin-bottom48 bg-white">
-            <div class="content padding-lr">
-                <div class="gold flex flex-direction align-center justify-center">
-                    <div class="text-sm text-white" style="height: 14px;line-height: 14px;margin-top: 25px;">可用金豆(个)</div>
-                    <div class="flex flex-row align-center justify-center margin-top-sm" style="height: 35px;">
-                        <img src="../../assets/images/goldenCenter/goldenBeans.png" alt="">
-                        <span class="text-sxxlm text-white">{{goldenBeansInfo.usableBean}}</span>
-                    </div>
-                    <div class="text-xs text-center text-white" style="margin-top: 8px;">
-                        累计获得<span class="text-lg" style="margin-left: 4px;">{{goldenBeansInfo.incomeBean}}</span>
+        <div class="box-centent">
+            <div class="header">
+                <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
+                    <template #left>
+                        <img src="../../assets/images/back.png" alt="" class="back-icon">
+                    </template>
+                    <template #title>
+                        <span class="text-sm text-blackDark text-df text-bold">使用明细</span>
+                    </template>
+                </van-nav-bar>
+            </div>
+            <div class="contaier margin-bottom48 bg-white">
+                <div class="content padding-lr">
+                    <div class="gold flex flex-direction align-center justify-center">
+                        <div class="text-sm text-white" style="height: 14px;line-height: 14px;margin-top: 25px;">可用金豆(个)</div>
+                        <div class="flex flex-row align-center justify-center margin-top-sm" style="height: 35px;">
+                            <img src="../../assets/images/goldenCenter/goldenBeans.png" alt="">
+                            <span class="text-sxxlm text-white">{{goldenBeansInfo.usableBean}}</span>
+                        </div>
+                        <div class="text-xs text-center text-white" style="margin-top: 8px;">
+                            累计获得<span class="text-lg" style="margin-left: 4px;">{{goldenBeansInfo.incomeBean}}</span>
+                        </div>
                     </div>
                 </div>
+                <van-tabs v-model="active" sticky color='#EC501F' title-inactive-color='#6e6e6e' title-active-color='#EC501F' offset-top='48' :border='false' background='#ffffff'>
+                    <van-tab title="收入">
+                        <div class="item flex flex-row align-center justify-between">
+                            <div>
+                                <p class="title text-df text-blackDark">每日签到</p>
+                                <p class="text-xs text-gray">2020/04/03 09:57:51</p>
+                            </div>
+                            <div>
+                                <span class="text-xl text-blackDark">+20</span>
+                                <img src="../../assets/images/goldenCenter/goldenBeans-s.png" alt="">
+                            </div>
+                        </div>
+                    </van-tab>
+                    <van-tab title="支出">
+                        <div class="item flex flex-row align-center justify-between">
+                            <div>
+                                <p class="title text-df text-blackDark">每日签到</p>
+                                <p class="text-xs text-gray">2020/04/03 09:57:51</p>
+                            </div>
+                            <div>
+                                <span class="text-xl text-blackDark">-20</span>
+                                <img src="../../assets/images/goldenCenter/goldenBeans-s.png" alt="">
+                            </div>
+                        </div>
+                    </van-tab>
+                </van-tabs>
             </div>
-            <van-tabs v-model="active" sticky color='#EC501F' title-inactive-color='#6e6e6e' title-active-color='#EC501F' offset-top='40' :border='false' background='#ffffff'>
-                <van-tab title="收入">
-                    <div class="item flex flex-row align-center justify-between">
-                        <div>
-                            <p class="title text-df text-blackDark">每日签到</p>
-                            <p class="text-xs text-gray">2020/04/03 09:57:51</p>
-                        </div>
-                        <div>
-                            <span class="text-xl text-blackDark">+20</span>
-                            <img src="../../assets/images/goldenCenter/goldenBeans-s.png" alt="">
-                        </div>
-                    </div>
-                </van-tab>
-                <van-tab title="支出">
-                    <div class="item flex flex-row align-center justify-between">
-                        <div>
-                            <p class="title text-df text-blackDark">每日签到</p>
-                            <p class="text-xs text-gray">2020/04/03 09:57:51</p>
-                        </div>
-                        <div>
-                            <span class="text-xl text-blackDark">-20</span>
-                            <img src="../../assets/images/goldenCenter/goldenBeans-s.png" alt="">
-                        </div>
-                    </div>
-                </van-tab>
-            </van-tabs>
         </div>
     </div>
 </template>
@@ -110,7 +112,7 @@
             width: 30px !important;
         }
         .van-sticky--fixed {
-            top: 40px !important;
+            top: 48px !important;
         }
     }
 </style>

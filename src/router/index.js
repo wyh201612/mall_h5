@@ -165,6 +165,12 @@ export const constantRoutes = [
         meta: { title: '黄金租售-出售提单',auth: true,index:4 }
       },
       {
+        path: 'effectiveBillSellSuccess',
+        component: () => import('@/views/effectiveBillSellSuccess/index'),
+        name: 'effectiveBillSellSuccess',
+        meta: { title: '黄金租售-出售提单成功',auth: true,index:5 }
+      },
+      {
         path: 'effectiveBillWithdrawal',
         component: () => import('@/views/effectiveBillWithdrawal/index'),
         name: 'effectiveBillWithdrawal',
@@ -175,6 +181,12 @@ export const constantRoutes = [
         component: () => import('@/views/effectiveBillLeaseback/index'),
         name: 'effectiveBillLeaseback',
         meta: { title: '黄金租售-回租提单',auth: true,index:4 }
+      },
+      {
+        path: 'effectiveBillLeaseSuccess',
+        component: () => import('@/views/effectiveBillLeaseSuccess/index'),
+        name: 'effectiveBillLeaseSuccess',
+        meta: { title: '黄金租售-回租提单成功',auth: true,index:4 }
       },
       {
         path: 'effectiveBillFootprint',

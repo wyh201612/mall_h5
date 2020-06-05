@@ -6,7 +6,7 @@
                     <img src="../../assets/images/back.png" alt="" class="back-icon">
                 </template>
                 <template #title>
-                    <span class="text-sm text-darkGray">登陆</span>
+                    <span class="text-sm text-blackDark text-df text-bold">登陆</span>
                 </template>
             </van-nav-bar>
         </div>
@@ -25,9 +25,7 @@
                 <div class="flex flex-row align-start margin-top">
                     <van-checkbox v-model="checked" icon-size="16px" checked-color="#EC501F" class="margin-right-sm" style="margin-top: 2px;"></van-checkbox>
                     <div class="text-darkGray">
-                        <div class="text-sm">
-                            我已阅读并同意<span class="text-orangeLight">《用户协议和隐私政策》</span>
-                        </div>
+                        <div class="text-sm">我已阅读并同意<span class="text-orangeLight">《用户协议和隐私政策》</span></div>
                         <div class="text-sm">提示：未注册的手机号，登录后将视为自动注册</div>
                     </div>
                 </div>

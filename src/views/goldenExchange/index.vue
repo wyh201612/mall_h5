@@ -1,41 +1,43 @@
 <template>
     <div class="goldenExchange dashboard-container flex flex-direction">
-        <div class="header">
-            <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
-                <template #left>
-                    <img src="../../assets/images/back.png" alt="" class="back-icon">
-                </template>
-                <template #title>
-                    <span class="text-sm text-darkGray">金豆换券</span>
-                </template>
-                <template #right>
-                    <router-link :to="{path:'/exchangeDetails'}">
-                        <span class="text-sm text-darkGray">兑换明细</span>
-                    </router-link>
-                </template>
-            </van-nav-bar>
-        </div>
-        <div class="contaier">
-            <van-pull-refresh v-model="isLoading" @refresh="onRefresh" success-text="刷新成功">
-                <template #loading>
-                    <img class="refresh-icon" src="../../assets/images/refresh-icon.png" />
-                </template>
-                <div class="content padding-lr">
-                    <div class="flex flex-row flex-wrap">
-                        <div class="list-item bg-white">
-                            <div class="img">
-                                <img src="../../assets/images/goldenCenter/avatar.png" alt="">
+        <div class="box-centent">
+            <div class="header">
+                <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
+                    <template #left>
+                        <img src="../../assets/images/back.png" alt="" class="back-icon">
+                    </template>
+                    <template #title>
+                        <span class="text-sm text-blackDark text-df text-bold">金豆换券</span>
+                    </template>
+                    <template #right>
+                        <router-link :to="{path:'/exchangeDetails'}">
+                            <span class="text-sm text-darkGray">兑换明细</span>
+                        </router-link>
+                    </template>
+                </van-nav-bar>
+            </div>
+            <div class="contaier">
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh" success-text="刷新成功">
+                    <template #loading>
+                        <img class="refresh-icon" src="../../assets/images/refresh-icon.png" />
+                    </template>
+                    <div class="content padding-lr">
+                        <div class="flex flex-row flex-wrap">
+                            <div class="list-item bg-white">
+                                <div class="img">
+                                    <img src="../../assets/images/goldenCenter/avatar.png" alt="">
+                                </div>
+                                <p class="name text-xs text-darkGray">商城优惠券</p>
+                                <div class="goldenNum flex flex-row align-center justify-between">
+                                    <div class="text-xl text-orangeDark">20020<span class="text-xs" style="transform: scale(0.83,0.83);transform-origin: 0 0;display: inline-block;">金豆</span></div>
+                                    <div class="btn text-sm text-white bg-orangeLight text-center"><router-link :to="{path: '/exchangeGoodsDetails'}">兑换</router-link></div>
+                                </div>
+                                <p class="text-xs text-gray text-through price">20元</p>
                             </div>
-                            <p class="name text-xs text-darkGray">商城优惠券</p>
-                            <div class="goldenNum flex flex-row align-center justify-between">
-                                <div class="text-xl text-orangeDark">20020<span class="text-xs" style="transform: scale(0.83,0.83);transform-origin: 0 0;display: inline-block;">金豆</span></div>
-                                <div class="btn text-sm text-white bg-orangeLight text-center"><router-link :to="{path: '/exchangeGoodsDetails'}">兑换</router-link></div>
-                            </div>
-                            <p class="text-xs text-gray text-through price">20元</p>
                         </div>
                     </div>
-                </div>
-            </van-pull-refresh>
+                </van-pull-refresh>
+            </div>
         </div>
     </div>
 </template>

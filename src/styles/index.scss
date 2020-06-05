@@ -62,17 +62,22 @@ html {
   margin: 0 auto;
 }
 #app {
+  height: 100%;
   background: #F7F7F7;
   .main-container {
+    height: 100%;
     transition: margin-left .28s;
     margin-left: 0;
     position: relative;
     .dashboard-container {
       width: 100%;
+      height: 100%;
     }
   }
 }
-
+.box-centent {
+  background: #F7F7F7;
+}
 i {
   font-style: normal;
 }
@@ -81,6 +86,10 @@ i {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+.overflowHidden {
+  overflow: hidden;
 }
 
 .no-padding {
@@ -219,7 +228,7 @@ p {
   background: #f7f7f7;
 }
 .contaier {
-  margin-top: 40px;
+  margin-top: 48px;
 }
 .van-pull-refresh__head {
   height: 50Px !important;

@@ -48,7 +48,7 @@ export default {
 
 <style lang="scss" scoped>
   .app-main {
-    overflow: hidden;
+    // overflow: hidden;
     width: 100%;
     height: 100%;
   }

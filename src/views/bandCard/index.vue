@@ -7,7 +7,7 @@
                         <img src="../../assets/images/back.png" alt="" class="back-icon">
                     </template>
                     <template #title>
-                        <span class="text-sm text-darkGray">绑定银行卡</span>
+                        <span class="text-sm text-blackDark text-df text-bold">绑定银行卡</span>
                     </template>
                 </van-nav-bar>
             </div>

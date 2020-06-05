@@ -1,95 +1,97 @@
 <template>
     <div class="couponCenter dashboard-container flex flex-direction">
-        <div class="header">
-            <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
-                <template #left>
-                    <img src="../../assets/images/back.png" alt="" class="back-icon">
-                </template>
-                <template #title>
-                    <span class="text-sm text-darkGray">优惠福利中心</span>
-                </template>
-            </van-nav-bar>
-        </div>
-        <div class="contaier">
-            <van-pull-refresh v-model="isLoading" @refresh="onRefresh" success-text="刷新成功" head-height='50'>
-                <template #loading>
-                    <img class="refresh-icon" src="../../assets/images/refresh-icon.png" />
-                </template>
-                <div class="content padding-lr margin-top-sm">
-                    <div v-if="banner[0]">
-                        <div class="banner bg-white" :style="'background: url('+banner[0].imgUrl+') center no-repeat;'"></div>
-                    </div>
-                    <div class="goldenNum-box bg-white flex flex-row align-center justify-between padding-lr-lg">
-                        <div class="">
-                            <p class="text-df title">金豆换券</p>
-                            <p class="text-sm">当前拥有<span class="goldenNum text-orangeDark">60</span>个金豆</p>
+        <div class="box-centent">
+            <div class="header">
+                <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
+                    <template #left>
+                        <img src="../../assets/images/back.png" alt="" class="back-icon">
+                    </template>
+                    <template #title>
+                        <span class="text-sm text-blackDark text-df text-bold">优惠福利中心</span>
+                    </template>
+                </van-nav-bar>
+            </div>
+            <div class="contaier">
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh" success-text="刷新成功" head-height='50'>
+                    <template #loading>
+                        <img class="refresh-icon" src="../../assets/images/refresh-icon.png" />
+                    </template>
+                    <div class="content padding-lr margin-top-sm">
+                        <div v-if="banner[0]">
+                            <div class="banner bg-white" :style="'background: url('+banner[0].imgUrl+') center no-repeat;'"></div>
                         </div>
-                        <div class="exchange text-center text-xs bg-orangeDark">立即兑换</div>
+                        <div class="goldenNum-box bg-white flex flex-row align-center justify-between padding-lr-lg">
+                            <div class="">
+                                <p class="text-df title">金豆换券</p>
+                                <p class="text-sm">当前拥有<span class="goldenNum text-orangeDark">60</span>个金豆</p>
+                            </div>
+                            <div class="exchange text-center text-xs bg-orangeDark">立即兑换</div>
+                        </div>
+                        <div class="couponList-box bg-white">
+                            <div class="title text-df">我的优惠</div>
+                            <van-tabs v-model="active" sticky swipeable animated color='#EC501F' title-inactive-color='#6e6e6e' title-active-color='#EC501F' offset-top='48' :border='false' background='#ffffff'>
+                                <van-tab :title="'可使用 '+ availableList.length">
+                                    <div class="coupon-item flex flex-row align-center justify-between" v-for="(item,index) in availableList" :key="index">
+                                        <div class="coupon-left flex flex-row align-center">
+                                            <div class="coupon-left-price text-center">
+                                                <div class="text-price text-sxl text-orangeDark text-bold price">{{item.discountAmount}}</div>
+                                                <div class="text-xs text-gray title-t">满{{item.transactionAmount}}可用</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm text-darkGray" style="margin-bottom: 6px;margin-top: 12px;">{{item.name}}</div>
+                                                <div class="text-xs text-gray title-t">有效期 {{item.indateStartTime}}-{{item.indateTime}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="availabBtn text-xs text-orangeDark text-center margin-right-lg">去使用</div>
+                                    </div>
+                                    <div class="noCoupon-box" v-if="availableList.length==0">
+                                        <img src="../../assets/images/goldenCenter/noCoupon2.png" alt="">
+                                        <div class="text-center text-xs text-gray">无任何记录~</div>
+                                    </div>
+                                </van-tab>
+                                <van-tab :title="'已使用 '+ usedList.length">
+                                    <div class="coupon-item flex flex-row align-center justify-between" v-for="(item,index) in usedList" :key="index">
+                                        <div class="coupon-left flex flex-row align-center">
+                                            <div class="coupon-left-price text-center">
+                                                <div class="text-price text-sxl text-gray text-bold price">5</div>
+                                                <div class="text-xs text-gray title-t">满50可用</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm text-darkGray" style="margin-bottom: 6px;margin-top: 12px;">商城优惠券</div>
+                                                <div class="text-xs text-gray title-t">有效期 2020.1.12-2020.4.2</div>
+                                            </div>
+                                        </div>
+                                        <div class="userBtn text-xs text-gray text-center margin-right-lg">已使用</div>
+                                    </div>
+                                    <div class="noCoupon-box" v-if="usedList.length==0">
+                                        <img src="../../assets/images/goldenCenter/noCoupon2.png" alt="">
+                                        <div class="text-center text-xs text-gray">无任何记录~</div>
+                                    </div>
+                                </van-tab>
+                                <van-tab :title="'已失效 '+ exceedList.length">
+                                    <div class="coupon-item flex flex-row align-center justify-between" v-for="(item,index) in exceedList" :key="index">
+                                        <div class="coupon-left flex flex-row align-center">
+                                            <div class="coupon-left-price text-center">
+                                                <div class="text-price text-sxl text-gray text-bold price">5</div>
+                                                <div class="text-xs text-gray title-t">满50可用</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm text-darkGray" style="margin-bottom: 6px;margin-top: 12px;">商城优惠券</div>
+                                                <div class="text-xs text-gray title-t">有效期 2020.1.12-2020.4.2</div>
+                                            </div>
+                                        </div>
+                                        <div class="exceedBtn text-xs text-gray text-center margin-right-lg">已失效</div>
+                                    </div>
+                                    <div class="noCoupon-box" v-if="exceedList.length==0">
+                                        <img src="../../assets/images/goldenCenter/noCoupon2.png" alt="">
+                                        <div class="text-center text-xs text-gray">无任何记录~</div>
+                                    </div>
+                                </van-tab>
+                            </van-tabs>
+                        </div>
                     </div>
-                    <div class="couponList-box bg-white">
-                        <div class="title text-df">我的优惠</div>
-                        <van-tabs v-model="active" sticky swipeable animated color='#EC501F' title-inactive-color='#6e6e6e' title-active-color='#EC501F' offset-top='40' :border='false' background='#ffffff'>
-                            <van-tab :title="'可使用 '+ availableList.length">
-                                <div class="coupon-item flex flex-row align-center justify-between" v-for="(item,index) in availableList" :key="index">
-                                    <div class="coupon-left flex flex-row align-center">
-                                        <div class="coupon-left-price text-center">
-                                            <div class="text-price text-sxl text-orangeDark text-bold price">{{item.discountAmount}}</div>
-                                            <div class="text-xs text-gray title-t">满{{item.transactionAmount}}可用</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-sm text-darkGray" style="margin-bottom: 6px;margin-top: 12px;">{{item.name}}</div>
-                                            <div class="text-xs text-gray title-t">有效期 {{item.indateStartTime}}-{{item.indateTime}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="availabBtn text-xs text-orangeDark text-center margin-right-lg">去使用</div>
-                                </div>
-                                <div class="noCoupon-box" v-if="availableList.length==0">
-                                    <img src="../../assets/images/goldenCenter/noCoupon2.png" alt="">
-                                    <div class="text-center text-xs text-gray">无任何记录~</div>
-                                </div>
-                            </van-tab>
-                            <van-tab :title="'已使用 '+ usedList.length">
-                                <div class="coupon-item flex flex-row align-center justify-between" v-for="(item,index) in usedList" :key="index">
-                                    <div class="coupon-left flex flex-row align-center">
-                                        <div class="coupon-left-price text-center">
-                                            <div class="text-price text-sxl text-gray text-bold price">5</div>
-                                            <div class="text-xs text-gray title-t">满50可用</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-sm text-darkGray" style="margin-bottom: 6px;margin-top: 12px;">商城优惠券</div>
-                                            <div class="text-xs text-gray title-t">有效期 2020.1.12-2020.4.2</div>
-                                        </div>
-                                    </div>
-                                    <div class="userBtn text-xs text-gray text-center margin-right-lg">已使用</div>
-                                </div>
-                                <div class="noCoupon-box" v-if="usedList.length==0">
-                                    <img src="../../assets/images/goldenCenter/noCoupon2.png" alt="">
-                                    <div class="text-center text-xs text-gray">无任何记录~</div>
-                                </div>
-                            </van-tab>
-                            <van-tab :title="'已失效 '+ exceedList.length">
-                                <div class="coupon-item flex flex-row align-center justify-between" v-for="(item,index) in exceedList" :key="index">
-                                    <div class="coupon-left flex flex-row align-center">
-                                        <div class="coupon-left-price text-center">
-                                            <div class="text-price text-sxl text-gray text-bold price">5</div>
-                                            <div class="text-xs text-gray title-t">满50可用</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-sm text-darkGray" style="margin-bottom: 6px;margin-top: 12px;">商城优惠券</div>
-                                            <div class="text-xs text-gray title-t">有效期 2020.1.12-2020.4.2</div>
-                                        </div>
-                                    </div>
-                                    <div class="exceedBtn text-xs text-gray text-center margin-right-lg">已失效</div>
-                                </div>
-                                <div class="noCoupon-box" v-if="exceedList.length==0">
-                                    <img src="../../assets/images/goldenCenter/noCoupon2.png" alt="">
-                                    <div class="text-center text-xs text-gray">无任何记录~</div>
-                                </div>
-                            </van-tab>
-                        </van-tabs>
-                    </div>
-                </div>
-            </van-pull-refresh>
+                </van-pull-refresh>
+            </div>
         </div>
     </div>
 </template>
@@ -164,7 +166,7 @@
             width: 30px !important;
         }
         .van-sticky--fixed {
-            top: 40px !important;
+            top: 48px !important;
         }
         .van-list__error-text, .van-list__finished-text, .van-list__loading {
             background: #f7f7f7;

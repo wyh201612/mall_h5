@@ -1,127 +1,131 @@
 <template>
     <div class="goldenBeanCenter dashboard-container flex flex-direction">
-        <div class="header">
-            <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
-                <template #left>
-                    <img src="../../assets/images/back.png" alt="" class="back-icon">
-                </template>
-                <template #title>
-                    <span class="text-sm text-darkGray">我的金豆</span>
-                </template>
-                <template #right>
-                    <router-link :to="{path:'/goldenDetails'}">
-                        <span class="text-sm text-darkGray">使用明细</span>
-                    </router-link>
-                </template>
-            </van-nav-bar>
-        </div>
-        <div class="contaier">
-            
-            <div class="content padding-lr">
-                <div class="gold flex flex-direction align-center justify-center">
-                    <div class="text-sm text-white">可用金豆(个)</div>
-                    <div class="flex flex-row align-center justify-center margin-top-sm">
-                        <img src="../../assets/images/goldenCenter/goldenBeans.png" alt="">
-                        <span class="text-sxxlm text-white">{{signInfoData.goldBean}}</span>
-                    </div>
-                </div>
-                <div class="GoodGiftCoupons padding-tb bg-white">
-                    <div class="padding-lr flex flex-row align-center justify-between">
-                        <div class="text-sm text-blackDark">好礼换券</div>
-                        <div class="text-xs text-darkGray">
-                            <router-link :to="{path: '/goldenExchangeList'}">更多好礼<van-icon name="arrow" class=" vertical-middle" /></router-link>
+        <div class="box-centent">
+            <div class="header">
+                <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
+                    <template #left>
+                        <img src="../../assets/images/back.png" alt="" class="back-icon">
+                    </template>
+                    <template #title>
+                        <span class="text-sm text-blackDark text-df text-bold">我的金豆</span>
+                    </template>
+                    <template #right>
+                        <router-link :to="{path:'/goldenDetails'}">
+                            <span class="text-sm text-darkGray">使用明细</span>
+                        </router-link>
+                    </template>
+                </van-nav-bar>
+            </div>
+            <div class="contaier">
+                <div class="content padding-lr">
+                    <div class="gold flex flex-direction align-center justify-center">
+                        <div class="text-sm text-white">可用金豆(个)</div>
+                        <div class="flex flex-row align-center justify-center margin-top-sm">
+                            <img src="../../assets/images/goldenCenter/goldenBeans.png" alt="">
+                            <span class="text-sxxlm text-white">{{signInfoData.goldBean}}</span>
                         </div>
                     </div>
-                    <div class="GiftCoupons-list flex flex-row">
-                        <div class="exchangeGoodManners flex flex-row flex-wrap" v-if="giftList.length!=0">
-                            <div class="GiftCoupons-item margin-top-sm flex flex-direction align-center justify-center" v-for="(item, index) in giftList" :key="index">
-                                <img :src="item.imgUrl" alt="">
-                                <div class="couponName text-xs text-darkGray">{{item.giftName}}</div>
-                                <div class="goldNum text-xs text-orangeLight">{{item.price}}金豆兑换</div>
-                                <div class="btn text-xs bg-orangeLight text-center"><router-link :to="{path: '/exchangeGoodsDetails',query:{giftId:item.giftId,balance:item.balance,giftName:item.giftName,imgUrl:item.imgUrl,introduction:item.introduction,marketPrice:item.marketPrice,price:item.price,remark:item.remark}}">立即兑换</router-link></div>
+                    <div class="GoodGiftCoupons padding-tb bg-white">
+                        <div class="padding-lr flex flex-row align-center justify-between">
+                            <div class="text-sm text-blackDark">好礼换券</div>
+                            <div class="text-xs text-darkGray">
+                                <router-link :to="{path: '/goldenExchangeList'}">更多好礼<van-icon name="arrow" class=" vertical-middle" /></router-link>
                             </div>
                         </div>
-                        <!-- 无兑换实物奖品 -->
-                        <div class="noCoupon" v-else>
-                            <img src="../../assets/images/goldenCenter/noCoupon.png" alt="">
-                            <div class="margin-top text-gray text-center text-sm">无券可兑，正在筹备中～</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="task padding-top margin-bottom bg-white">
-                    <div class="padding-lr">
-                        <div class="text-sm text-blackDark">做任务领金豆</div>
-                    </div>
-                    <div class="padding-bottom van-hairline--bottom">
-                        <div class="signIn-box flex flex-row justify-between">
-                            <div class="flex flex-row">
-                                <div>
-                                    <img src="../../assets/images/goldenCenter/calendar.png" alt="" class="calendar">
-                                </div>
-                                <div>
-                                    <div class="text-sm text-blackDark" style="margin-bottom: 2px;">每日签到</div>
-                                    <div class="text-xs text-darkGray">已连续签到<span class="text-orangeLight">{{signInfoData.continueSign}}</span>天，继续加油哦</div>
+                        <div class="GiftCoupons-list flex flex-row">
+                            <div class="exchangeGoodManners flex flex-row flex-wrap" v-if="giftList.length!=0">
+                                <div class="GiftCoupons-item margin-top-sm flex flex-direction align-center justify-center" v-for="(item, index) in giftList" :key="index">
+                                    <img :src="item.imgUrl" alt="">
+                                    <div class="couponName text-xs text-darkGray">{{item.giftName}}</div>
+                                    <div class="goldNum text-xs text-orangeLight">{{item.price}}金豆兑换</div>
+                                    <div class="btn text-xs bg-orangeLight text-center"><router-link :to="{path: '/exchangeGoodsDetails',query:{giftId:item.giftId,balance:item.balance,giftName:item.giftName,imgUrl:item.imgUrl,introduction:item.introduction,marketPrice:item.marketPrice,price:item.price,remark:item.remark}}">立即兑换</router-link></div>
                                 </div>
                             </div>
-                            <div class="signIn text-center text-darkGray text-xs margin-right-sm" v-if='signInfoData.signStatus==0' @click="siginIn()">签到</div>
-                            <div class="signedIn text-center text-white text-xs margin-right-sm" v-else>已签到</div>
+                            <!-- 无兑换实物奖品 -->
+                            <div class="noCoupon" v-else>
+                                <img src="../../assets/images/goldenCenter/noCoupon.png" alt="">
+                                <div class="margin-top text-gray text-center text-sm">无券可兑，正在筹备中～</div>
+                            </div>
                         </div>
-                        <div class="signIn-bottom">
-                            <div class="flex flex-row justify-between">
-                                <div style="position: relative;" class="signIn-item" v-for="(item, index) in signInfoData.signDaysList" :key="index">
-                                    <div class="line" v-if="index!=6"></div>
-                                    <div class="text-center">
-                                        <div :class="item.isSignIn?'no-checked active':'no-checked'">
-                                            <svg-icon :icon-class="item.isSignIn?'circle2':'circle1'" :class="item.isSignIn?'circle active':'circle'"></svg-icon>
-                                            <div :class="item.isSignIn?'jiangli text-df text-bold active':'jiangli text-sm'">+{{item.goldBean}}</div>
+                    </div>
+                    <div class="task padding-top margin-bottom bg-white">
+                        <div class="padding-lr">
+                            <div class="text-sm text-blackDark">做任务领金豆</div>
+                        </div>
+                        <div class="padding-bottom van-hairline--bottom">
+                            <div class="signIn-box flex flex-row justify-between">
+                                <div class="flex flex-row">
+                                    <div>
+                                        <img src="../../assets/images/goldenCenter/calendar.png" alt="" class="calendar">
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-blackDark" style="margin-bottom: 2px;">每日签到</div>
+                                        <div class="text-xs text-darkGray">已连续签到<span class="text-orangeLight">{{signInfoData.continueSign}}</span>天，继续加油哦</div>
+                                    </div>
+                                </div>
+                                <div class="signIn text-center text-darkGray text-xs margin-right-sm" v-if='signInfoData.signStatus==0' @click="siginIn()">签到</div>
+                                <div class="signedIn text-center text-white text-xs margin-right-sm" v-else>已签到</div>
+                            </div>
+                            <div class="signIn-bottom">
+                                <div class="flex flex-row justify-between">
+                                    <div style="position: relative;" class="signIn-item" v-for="(item, index) in signInfoData.signDaysList" :key="index">
+                                        <div class="line" v-if="index!=6"></div>
+                                        <div class="text-center">
+                                            <div :class="item.isSignIn?'no-checked active':'no-checked'">
+                                                <svg-icon :icon-class="item.isSignIn?'circle2':'circle1'" :class="item.isSignIn?'circle active':'circle'"></svg-icon>
+                                                <div :class="item.isSignIn?'jiangli text-df text-bold active':'jiangli text-sm'">+{{item.goldBean}}</div>
+                                            </div>
+                                        </div>
+                                        <div :class="item.isSignIn?'week active':'week'">{{item.day}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tasks">
+                            <div class="tasks-item flex flex-row align-center justify-between padding-tb van-hairline--bottom">
+                                <div class="tasks-item-left">
+                                    <div class="flex flex-row">
+                                        <img src="../../assets/images/goldenCenter/cart.png" alt="">
+                                        <div class="left-box flex flex-direction justify-between">
+                                            <div class="text-sm text-blackDark">认证绑卡</div>
+                                            <div class="text-xs text-darkGray">成功认证绑卡即可获得30个金豆</div>
                                         </div>
                                     </div>
-                                    <div :class="item.isSignIn?'week active':'week'">{{item.day}}</div>
+                                </div>
+                                <div class="tasks-item-right margin-right-sm">
+                                    <div class="task-btn2 bg-gray text-xs text-center" v-if="bindCard==1">已绑卡</div>
+                                    <router-link :to="'/bandCard'" v-else>
+                                        <div class="signedIn text-center text-white text-xs margin-right-sm">去绑卡</div>
+                                    </router-link>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="tasks">
-                        <div class="tasks-item flex flex-row align-center justify-between padding-tb van-hairline--bottom">
-                            <div class="tasks-item-left">
-                                <div class="flex flex-row">
-                                    <img src="../../assets/images/goldenCenter/cart.png" alt="">
-                                    <div class="left-box flex flex-direction justify-between">
-                                        <div class="text-sm text-blackDark">认证绑卡</div>
-                                        <div class="text-xs text-darkGray">成功认证绑卡即可获得30个金豆</div>
+                            <div class="tasks-item flex flex-row align-center justify-between padding-tb van-hairline--bottom">
+                                <div class="tasks-item-left">
+                                    <div class="flex flex-row">
+                                        <img src="../../assets/images/goldenCenter/cart.png" alt="">
+                                        <div class="left-box flex flex-direction justify-between">
+                                            <div class="text-sm text-blackDark">购买黄金</div>
+                                            <div class="text-xs text-darkGray">购买黄金奖励20个金豆</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tasks-item-right margin-right-sm">
-                                <router-link :to="'/index'"><div class="task-btn text-orangeLight text-xs text-center">去绑卡</div></router-link>
-                            </div>
-                        </div>
-                        <div class="tasks-item flex flex-row align-center justify-between padding-tb van-hairline--bottom">
-                            <div class="tasks-item-left">
-                                <div class="flex flex-row">
-                                    <img src="../../assets/images/goldenCenter/cart.png" alt="">
-                                    <div class="left-box flex flex-direction justify-between">
-                                        <div class="text-sm text-blackDark">购买黄金</div>
-                                        <div class="text-xs text-darkGray">购买黄金奖励20个金豆</div>
-                                    </div>
+                                <div class="tasks-item-right margin-right-sm">
+                                    <router-link :to="'/index'"><div class="task-btn text-orangeLight text-xs text-center">去买金</div></router-link>
                                 </div>
                             </div>
-                            <div class="tasks-item-right margin-right-sm">
-                                <router-link :to="'/index'"><div class="task-btn text-orangeLight text-xs text-center">去买金</div></router-link>
-                            </div>
-                        </div>
-                        <div class="tasks-item flex flex-row align-center justify-between padding-tb van-hairline--bottom">
-                            <div class="tasks-item-left">
-                                <div class="flex flex-row">
-                                    <img src="../../assets/images/goldenCenter/cart.png" alt="">
-                                    <div class="left-box flex flex-direction justify-between">
-                                        <div class="text-sm text-blackDark">回租提单</div>
-                                        <div class="text-xs text-darkGray">回租提单奖励30个金豆</div>
+                            <div class="tasks-item flex flex-row align-center justify-between padding-tb van-hairline--bottom">
+                                <div class="tasks-item-left">
+                                    <div class="flex flex-row">
+                                        <img src="../../assets/images/goldenCenter/cart.png" alt="">
+                                        <div class="left-box flex flex-direction justify-between">
+                                            <div class="text-sm text-blackDark">回租提单</div>
+                                            <div class="text-xs text-darkGray">回租提单奖励30个金豆</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tasks-item-right margin-right-sm">
-                                <router-link :to="'/index'"><div class="task-btn text-orangeLight text-xs text-center">去回租</div></router-link>
+                                <div class="tasks-item-right margin-right-sm">
+                                    <router-link :to="'/myGold'"><div class="task-btn text-orangeLight text-xs text-center">去回租</div></router-link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -132,7 +136,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapState,mapMutations } from 'vuex'
     import { getCookie, setCookie, removeCookie } from '@/utils/auth'
     export default {
         name: 'goldenBeanCenter',
@@ -148,7 +152,15 @@
             }
         },
         computed: {
-            
+            ...mapState({
+                accessToken: state => state.user.accessToken,
+                mobile: state => state.user.mobile,
+                loginName: state => state.user.loginName,
+                mobile: state => state.user.mobile,
+                bindCard: state => state.user.bindCard,
+                bindAddress: state => state.user.bindAddress,
+                bindPayPassword: state => state.user.bindPayPassword,
+            }),
         },
         created() {
             
@@ -354,6 +366,12 @@
                         height: 18px;
                         border-radius: 9px;
                         border:1px solid rgba(255,128,41,1);
+                    }
+                    .task-btn2 {
+                        width: 45px;
+                        height: 18px;
+                        border-radius: 9px;
+                        border:1px solid #c5c5c5;
                     }
                 }
             }

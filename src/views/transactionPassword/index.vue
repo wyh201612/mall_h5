@@ -6,7 +6,7 @@
                     <img src="../../assets/images/back.png" alt="" class="back-icon">
                 </template>
                 <template #title>
-                    <span class="text-sm text-darkGray">{{type==1?'修改交易密码':type==2?'设置交易密码':'找回交易密码'}}</span>
+                    <span class="text-sm text-blackDark text-df text-bold">{{type==1?'修改交易密码':type==2?'设置交易密码':'找回交易密码'}}</span>
                 </template>
             </van-nav-bar>
         </div>

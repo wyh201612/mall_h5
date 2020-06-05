@@ -1,148 +1,160 @@
 <template>
     <div class="shop dashboard-container flex flex-direction">
-        <div class="header" :class="{'blue':isBackground}">
-            <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
-                <template #left>
-                    <img src="../../assets/images/bai-back.png" alt="" class="back-icon" v-show="isBackground">
-                    <img src="../../assets/images/back.png" alt="" class="back-icon" v-show="!isBackground">
-                </template>
-                <template #title>
-                    <span class="text-sm" :class="isBackground?'text-white':'text-darkGray'">黄金租售</span>
-                </template>
-                <template #right>
-                    <van-icon name="user-circle-o" class="text-xl" :color="isBackground?'#ffffff':'#6E6E6E'" @click="loginInfo" v-show="accessToken!=null&&accessToken!=''&&accessToken!=undefined" />
-                </template>
-            </van-nav-bar>
-        </div>
-        <div class="contaier">
-            <van-pull-refresh v-model="isLoading" @refresh="onRefresh" success-text="刷新成功">
-                <template #loading>
-                    <img class="refresh-icon" src="../../assets/images/refresh-icon.png" />
-                </template>
-                <div class="content padding-lr margin-top-sm">
-                    <div class="text-center">
-                        <div v-if="accessToken!=null&&accessToken!=''&&accessToken!=undefined">
-                            <div class="text-xl padding-top">当前持有（克）<van-icon :name="showGoldNum?'eye-o':'closed-eye'" class="margin-left-sm vertical-middle" @click="clickShowGoldNum" /></div>
-                            <div class="text-sxl flex flex-row align-center justify-center text-xl padding-tb" v-show="showGoldNum">
-                                <span>{{billNums.bills}}</span>
-                                <router-link :to="{path:'/myGold'}" class="flex flex-direction align-center">
-                                    <van-icon name="arrow" class="margin-left-sm text-lg" />
-                                </router-link>
-                            </div>
-                            <div class="text-sxl flex flex-row align-center justify-center text-xl padding-tb" v-show="!showGoldNum">
-                                <span>***</span>
-                                <router-link :to="{path:'/myGold'}" class="flex flex-direction align-center">
-                                    <van-icon name="arrow" class="margin-left-sm text-lg" />
-                                </router-link>
-                            </div>
-                        </div>
-                        <router-link :to="{path:'/login'}" class="flex flex-direction align-center padding-tb" v-else>
-                            <van-button type="default">请先登陆/注册</van-button>
-                        </router-link>
+        <div class="box-centent">
+            <div class="contaier" style="margin-top: 0;">
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh" success-text="刷新成功">
+                    <template #loading>
+                        <img class="refresh-icon" src="../../assets/images/refresh-icon.png" />
+                    </template>
+                    <div class="header" :class="{'blue':isBackground}">
+                        <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
+                            <template #left>
+                                <img src="../../assets/images/bai-back.png" alt="" class="back-icon" v-show="isBackground">
+                                <img src="../../assets/images/back.png" alt="" class="back-icon" v-show="!isBackground">
+                            </template>
+                            <template #right>
+                                <img src="../../assets/images/index-icon.png" alt="" class="index-icon" @click="loginInfo" v-show="accessToken!=null&&accessToken!=''&&accessToken!=undefined">
+                                <!-- <van-icon name="user-circle-o" class="text-xl" :color="isBackground?'#ffffff':'#6E6E6E'" @click="loginInfo" v-show="accessToken!=null&&accessToken!=''&&accessToken!=undefined" /> -->
+                            </template>
+                        </van-nav-bar>
                     </div>
-                    <div v-if="banner[0]">
-                        <div class="banner bg-white" :style="'background: url('+banner[0].imgUrl+') center no-repeat;'"></div>
+                    <div class="bg">
+                        <span class="text-white text-xlx text-center">xx融资租赁</span>
                     </div>
-                    <!-- 公告 -->
-                    <div class="notice margin-tb-sm flex flex-row align-center">
-                        <img class="notice-icon fl" src="../../assets/images/notice-icon.png" alt="">
-                        <SeamleScroll :noticeList="investList"/>
-                    </div>
-                    <div class="goldList" v-if="goodsData[0]">
-                        <div class="goldList-item bg-white flex flex-row" v-for="(item,index) in goodsData[0].productList" :key="index" @click="toGoldDetail(item.id)">
-                            <div class="cornerMarker flex flex-row align-center">
-                                <span class="dot bg-white"></span>
-                                <span class="markerTitle text-white">
-                                    {{item.type==1?'新手活动':item.type==2?'活动产品':item.type==3?'流动金':item.type==4?'稳赢金':item.type==5?'闯关活动产品':item.type==6?'实物金':item.type==7?'体验金':item.type==8?'安稳金':item.type==9?'折扣金':''}}
-                                </span>
-                            </div>
-                            <div class="left">
-                                <img alt="" v-lazy="item.img">
-                            </div>
-                            <div class="right flex-sub">
-                                <div class="text-cut text-blackDark text-df title">{{item.name}}</div>
-                                <div class="text-cut_line_2 text-darkGray text-sm title-s">{{item.subhead}}</div>
-                                <div class="text-gray text-xs price">
-                                    <span>{{item.specification.toFixed(2)}}克起购</span>
-                                    <span class="line"></span>
-                                    <span>期限{{item.leaseDay.leaseDay}}天起</span>
+                    <div class="content padding-lr">
+                        <div class="text-center box bg-white flex flex-row align-center justify-center">
+                            <div v-if="accessToken!=null&&accessToken!=''&&accessToken!=undefined">
+                                <div class="text-sm padding-top text-gray">
+                                    当前持有(克)
+                                    <img src="../../assets/images/icon_eye_open.png" alt="" class="icon_eye vertical-middle" @click="clickShowGoldNum" v-show="showGoldNum">
+                                    <img src="../../assets/images/icon_eye_close.png" alt="" class="icon_eye vertical-middle" @click="clickShowGoldNum" v-show="!showGoldNum">
+                                </div>
+                                <div class="flex flex-row align-center justify-center text-xl padding-tb" v-show="showGoldNum">
+                                    <span class="text-blue text-sxxll" style="margin-right: 8px;">{{billNums.bills}}</span>
+                                    <router-link :to="{path:'/myGold'}" class="flex flex-direction align-center">
+                                        <span class="goGlodDetails text-xs text-gray">详情</span>
+                                    </router-link>
+                                </div>
+                                <div class="flex flex-row align-center justify-center text-xl padding-tb" v-show="!showGoldNum">
+                                    <span class="text-blue text-sxxll" style="padding-top: 9px;height: 51px;margin-right: 18px;">****</span>
+                                    <router-link :to="{path:'/myGold'}" class="flex flex-direction align-center">
+                                        <span class="goGlodDetails text-xs text-gray">详情</span>
+                                    </router-link>
                                 </div>
                             </div>
-                            <div class="buyBtn text-white text-sm text-center flex flex-row align-center justify-center" v-if="item.settingPriceType==2"><span class="text-lg margin-right-xs">{{item.sellingPrice.toFixed(2)}}</span>元/克</div>
-                            <div class="buyBtn text-white text-sm text-center flex flex-row align-center justify-center" v-if="item.settingPriceType==1">
-                                <span class="text-xs">实时价</span>
-                                <span class="line margin-lr-xs"></span>
-                                <span class="text-lg margin-right-xs">{{item.sellingPrice.toFixed(2)}}</span>元/克
+                            <router-link :to="{path:'/login'}" class="flex flex-direction align-center" v-else>
+                                <span class="logining text-df bg-orangeDark text-center">请先登陆/注册</span>
+                            </router-link>
+                        </div>
+                        <!-- <div v-if="banner[0]">
+                            <div class="banner bg-white" :style="'background: url('+banner[0].imgUrl+') center no-repeat;'"></div>
+                        </div> -->
+                        <!-- 公告 -->
+                        <div class="notice margin-tb-sm flex flex-row align-center">
+                            <img class="notice-icon fl" src="../../assets/images/notice-icon.png" alt="">
+                            <SeamleScroll :noticeList="investList"/>
+                        </div>
+                        <div class="goldList" v-if="goodsData[0]">
+                            <div class="goldList-item bg-white flex flex-row" v-for="(item,index) in goodsData[0].productList" :key="index" @click="toGoldDetail(item.id)">
+                                <div class="cornerMarker flex flex-row align-center">
+                                    <span class="dot bg-white"></span>
+                                    <span class="markerTitle text-white">
+                                        {{item.type==1?'新手活动':item.type==2?'活动产品':item.type==3?'流动金':item.type==4?'稳赢金':item.type==5?'闯关活动产品':item.type==6?'实物金':item.type==7?'体验金':item.type==8?'安稳金':item.type==9?'折扣金':''}}
+                                    </span>
+                                </div>
+                                <div class="left">
+                                    <img alt="" v-lazy="item.img">
+                                </div>
+                                <div class="right flex-sub">
+                                    <div class="text-cut text-blackDark text-df title text-bold">{{item.name}}</div>
+                                    <div class="text-cut_line_2 text-darkGray text-sm title-s">{{item.leaseDay.leaseDay}}日年化可达{{item.leaseDay.yearsIncome}}%</div>
+                                    <div class="text-gray text-xs price">
+                                        <span>{{item.specification.toFixed(2)}}克起购</span>
+                                        <span class="line"></span>
+                                        <span>期限{{item.leaseDay.leaseDay}}天起</span>
+                                    </div>
+                                </div>
+                                <div class="buyBtn text-white text-sm text-center flex flex-row align-center justify-center" v-if="item.settingPriceType==2"><span class="text-lg margin-right-xs">{{item.sellingPrice.toFixed(2)}}</span>元/克</div>
+                                <div class="buyBtn text-white text-sm text-center flex flex-row align-center justify-center" v-if="item.settingPriceType==1">
+                                    <span class="text-xs">实时价</span>
+                                    <span class="line margin-lr-xs"></span>
+                                    <span class="text-lg margin-right-xs">{{item.sellingPrice.toFixed(2)}}</span>元/克
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="businessItroduction" v-if="investArea.businessShowTag==1">
-                        <div class="text-blackDark text-df p">业务介绍</div>
-                        <div>
-                            <div class="business-item flex flex-row align-center text-darkGray" v-for="(item, index) in investArea.businessIntroductions" :key="index">
-                                <a :href="item.link" class="flex flex-row align-center">
-                                    <div class="flex-sub text-sm">
-                                        <span class="dot"></span>
-                                        <span>{{item.title}}</span>
-                                    </div>
-                                    <div class="right">
-                                        <img src="../../assets/images/right.png" alt="">
-                                    </div>
-                                </a>
+                        <div class="businessItroduction" v-if="investArea.businessShowTag==1">
+                            <div class="text-blackDark text-df p">业务介绍</div>
+                            <div>
+                                <div class="business-item flex flex-row align-center text-darkGray" v-for="(item, index) in investArea.businessIntroductions" :key="index">
+                                    <a :href="item.link" class="flex flex-row align-center">
+                                        <div class="flex-sub text-sm">
+                                            <span class="dot"></span>
+                                            <span>{{item.title}}</span>
+                                        </div>
+                                        <div class="right">
+                                            <img src="../../assets/images/right.png" alt="">
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="statistics flex flex-row align-center margin-top-sm">
-                        <div class="msg text-center">
-                            <div class="text-sm">累计已为用户管理黄金</div>
-                            <div class="text-df" style="color: #3987EC;margin-top: 6px;">{{publicity.appTotalGoldGram | filterGoldGram(publicity.appTotalGoldGram)}}</div>
+                        <div class="statistics flex flex-row align-center margin-top-sm">
+                            <div class="msg text-center">
+                                <div class="text-sm">累计已为用户管理黄金</div>
+                                <div class="text-df" style="color: #3987EC;margin-top: 6px;">{{publicity.appTotalGoldGram | filterGoldGram(publicity.appTotalGoldGram)}}</div>
+                            </div>
+                            <div class="msg text-center">
+                                <div class="text-sm">累计服务用户</div>
+                                <div class="text-df" style="color: #3987EC;margin-top: 6px;">{{publicity.appTotalServeUser | filterServeUser(publicity.appTotalServeUser)}}</div>
+                            </div>
                         </div>
-                        <div class="msg text-center">
-                            <div class="text-sm">累计服务用户</div>
-                            <div class="text-df" style="color: #3987EC;margin-top: 6px;">{{publicity.appTotalServeUser | filterServeUser(publicity.appTotalServeUser)}}</div>
-                        </div>
+                        <p class="text-sm text-center text-gray padding-bottom-xs">市场有风险，租赁需谨慎</p>
+                        <p class="text-sm text-center text-gray">杭州xx融资租赁有限公司</p>
                     </div>
-                    <p class="text-sm text-center text-gray padding-tb-sm">市场有风险，租赁需谨慎</p>
-                    <p class="text-sm text-center text-gray">杭州xx融资租赁有限公司</p>
-                </div>
-            </van-pull-refresh>
+                </van-pull-refresh>
+            </div>
         </div>
         <van-popup v-model="showLoginInfo" position="right" class="login-box" :safe-area-inset-bottom='true'>
             <div class="login-centent">
                 <div class="login-centent-top">
                     <div class="flex flex-row align-center" v-if="bindCard==2">
                         <van-image round class="avater margin-right" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-                        <router-link :to="{path:'/bandCard'}" class=""><van-button type="default">未实名绑卡</van-button></router-link>
+                        <router-link :to="{path:'/bandCard'}" class="margin-left">
+                            <div class="nobindCard text-center text-sm text-orangeDark">未实名绑卡</div>
+                        </router-link>
                     </div>
                     <div class="flex flex-row align-center" v-if="bindCard==1">
                         <van-image round class="avater margin-right" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-                        <div class="text-sm flex-sub">
-                            <p>{{loginName | changePhone(loginName)}}</p>
-                            <p><van-icon name="manager" class="margin-right-xs vertical-middle" />{{bindCard==1?'已实名':'未实名'}}</p>
+                        <div class="flex-sub">
+                            <p class="text-xl">{{loginName | changePhone(loginName)}}</p>
+                            <p class="text-xs">
+                                <img src="../../assets/images/smrz-icon.png" alt="" class="smrz-icon">
+                                <span class="tis" :class="bindCard==1?'text-blue':'text-gray'">{{bindCard==1?'已实名':'未实名'}}</span>
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="login-centent-middle text-sm van-hairline--bottom">
+                <div class="login-centent-middle van-hairline--bottom">
                     <div class="flex flex-row">
                         <div class="flex flex-direction align-center flex-sub">
                             <router-link :to="{path:'/goldenBeanCenter'}" class="flex flex-direction align-center">
-                                <p v-if="goldenBeansInfo.usableBean==null||goldenBeansInfo.usableBean==''||goldenBeansInfo.usableBean==undefined">0</p>
-                                <p v-else>{{goldenBeansInfo.usableBean}}</p>
-                                <p>金豆</p>
+                                <p class="text-blue text-xlx" v-if="goldenBeansInfo.usableBean==null||goldenBeansInfo.usableBean==''||goldenBeansInfo.usableBean==undefined">0</p>
+                                <p class="text-blue text-xlx" v-else>{{goldenBeansInfo.usableBean}}</p>
+                                <p class="text-sm">金豆</p>
                             </router-link>
                         </div>
                         <div class="flex flex-direction align-center flex-sub">
                             <router-link :to="{path:'/couponCenter'}" class="flex flex-direction align-center">
-                                <p v-if="activityCouponMemberList.usablenessCoupons==null||activityCouponMemberList.usablenessCoupons==''||activityCouponMemberList.usablenessCoupons==undefined">0</p>
-                                <p v-else>{{activityCouponMemberList.usablenessCoupons.length}}</p>
-                                <p>优惠</p>
+                                <p class="text-blue text-xlx" v-if="activityCouponMemberList.usablenessCoupons==null||activityCouponMemberList.usablenessCoupons==''||activityCouponMemberList.usablenessCoupons==undefined">0</p>
+                                <p class="text-blue text-xlx" v-else>{{activityCouponMemberList.usablenessCoupons.length}}</p>
+                                <p class="text-sm">优惠</p>
                             </router-link>
                         </div>
                         <div class="flex flex-direction align-center flex-sub">
                             <router-link :to="{path:'/myGold'}" class="flex flex-direction align-center">
-                                <p v-if="billNums.bills==null||billNums.bills==''||billNums.bills==undefined">0</p>
-                                <p v-else>{{billNums.bills}}</p>
-                                <p>黄金</p>
+                                <p class="text-blue text-xlx" v-if="billNums.bills==null||billNums.bills==''||billNums.bills==undefined">0</p>
+                                <p class="text-blue text-xlx" v-else>{{billNums.bills}}</p>
+                                <p class="text-sm">黄金</p>
                             </router-link>
                         </div>
                     </div>
@@ -150,39 +162,49 @@
                 <div class="cell-lists">
                     <van-cell is-link :to="{path:'/effectiveBill'}">
                         <template #title>
+                            <img src="../../assets/images/tidan-icon.png" alt="" class="custom-title-icon vertical-middle" >
                             <span class="custom-title">生效提单<van-icon dot class="logindot" /></span>
                         </template>
                         <template #default>
-                            <span class="custom-title">21</span>
+                            <span class="custom-title text-blue">21</span>
                         </template>
                     </van-cell>
                     <van-cell is-link :to="{path:'/transactionPassword',query:{type: bindPayPassword==1?1:2}}">
                         <template #title>
-                            <span class="custom-title">设置交易密码</span>
+                            <img src="../../assets/images/password-icon.png" alt="" class="custom-title-icon vertical-middle" >
+                            <span class="custom-title">交易密码</span>
                         </template>
                         <template #default>
-                            <span class="custom-title text-sm">{{bindPayPassword==1?'已设置,去修改':'未设置'}}</span>
+                            <span class="custom-title text-sm" :class="bindPayPassword==1?'text-blue':'text-orangeDark'">{{bindPayPassword==1?'已设置,去修改':'未设置'}}</span>
                         </template>
                     </van-cell>
                     <van-cell is-link :to="{path:'/bandCard'}">
                         <template #title>
+                            <img src="../../assets/images/tidan-icon.png" alt="" class="custom-title-icon vertical-middle" >
                             <span class="custom-title">绑定银行卡</span>
                         </template>
                         <template #default>
-                            <span class="custom-title text-sm">{{bindCard==1?'已绑卡':'未绑卡'}}</span>
+                            <span class="custom-title text-sm" :class="bindCard==1?'text-blue':'text-orangeDark'">{{bindCard==1?'已绑卡':'去实名绑卡'}}</span>
                         </template>
                     </van-cell>
                     <van-cell is-link :to="{path:'/addressList'}">
                         <template #title>
+                            <img src="../../assets/images/tidan-icon.png" alt="" class="custom-title-icon vertical-middle" >
                             <span class="custom-title">收货地址</span>
                         </template>
                     </van-cell>
                     <van-cell is-link :to="{path:'/helpCenter'}">
                         <template #title>
+                            <img src="../../assets/images/tidan-icon.png" alt="" class="custom-title-icon vertical-middle" >
                             <span class="custom-title">帮助中心</span>
                         </template>
                     </van-cell>
-                    <van-button type="default" @click="outLogin">退出</van-button>
+                    <van-cell>
+                        <template #title>
+                            <img src="../../assets/images/tidan-icon.png" alt="" class="custom-title-icon vertical-middle" >
+                            <span class="custom-title" @click="outLogin" style="color: #d8d8d8;">退出登陆</span>
+                        </template>
+                    </van-cell>
                 </div>
             </div>    
         </van-popup>
@@ -317,35 +339,98 @@
 </style>
 <style lang="scss" scoped>
     .shop {
+        .header {
+            background: transparent !important;
+        }
+        .bg {
+            overflow: hidden;
+            width: 100%;
+            height: 203px;
+            background: linear-gradient(180deg,rgba(189,211,255,1) 0%,rgba(57,135,236,1) 100%);
+            span {
+                display: block;
+                height: 28px;
+                font-weight: 500;
+                line-height: 28px;
+                margin-top: 80px;
+            }
+        }
         .login-box {
-            width: 260px;
+            width: 264px;
             height: 100%;
             .login-centent {
                 .login-centent-top {
-                    padding: 20px 20px;
+                    padding: 41px 20px 46px 20px;
                     .avater {
-                        width: 50px;
-                        height: 50px;
+                        width: 44px;
+                        height: 44px;
+                    }
+                    .nobindCard {
+                        width:90px;
+                        height:29px;
+                        line-height:29px;
+                        border-radius:4px;
+                        border:1px solid var(--orangeDark);
+                    }
+                    .tis {
+                        display: inline-block;
+                        transform: scale(0.83,0.83);
+                        transform-origin: 0 12px;
+                    }
+                    .smrz-icon {
+                        width: 8px;
+                        height: 8px;
+                        margin-right: 4px;
                     }
                 }
                 .login-centent-middle {
-                    padding: 10px 0;
+                    padding: 10px 0 41px 0;
                 }
                 .cell-lists {
                     .logindot {
                         .van-info.van-info--dot {
-                            top: -10px;
-                            right: -5px;
+                            background-color: var(--orangeDark);
+                            top: -5px;
+                            right: -7px;
                         }
+                    }
+                    .custom-title-icon {
+                        width: 16px;
+                        height: 16px;
+                        margin-right: 8px;
                     }
                 }
             }
         }
         .blue {
-            background: var(--blue) !important;
+            background: #b4cdfd !important;
         }
         .content {
             padding-bottom: 25px;
+            .box {
+                height: 160px;
+                border-radius: 4px;
+                margin-top: -50px;
+                .logining {
+                    width:115px;
+                    height:32px;
+                    line-height:32px;
+                    border-radius:4px;
+                    padding: 0;
+                }
+                .icon_eye {
+                    width: 16px;
+                    height: 16px;
+                    display: inline-block;
+                    margin-left: 10px;
+                }
+                .goGlodDetails {
+                    border-radius:8px;
+                    border:1px solid rgba(197,197,197,1);
+                    height: 18px;
+                    padding: 0 6px;
+                }
+            }
         }
         .banner {
             background-size: 100% 100% !important;
@@ -353,6 +438,7 @@
             height: 84px;
         }
         .notice {
+            background:rgba(241,241,241,1);
             height: 22px;
             .notice-icon {
                 width: 9px;
@@ -477,6 +563,7 @@
             }
         }
         .statistics {
+            margin-bottom: 50px;
             .msg {
                 padding: 8px 0;
                 width: 160px;

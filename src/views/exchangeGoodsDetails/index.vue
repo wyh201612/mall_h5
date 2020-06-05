@@ -1,33 +1,35 @@
 <template>
     <div class="exchangeGoodsDetails dashboard-container flex flex-direction">
-        <div class="header">
-            <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
-                <template #left>
-                    <img src="../../assets/images/back.png" alt="" class="back-icon">
-                </template>
-            </van-nav-bar>
-        </div>
-        <div style="margin-bottom: 48px;">
-            <div class="content">
-                <img :src="giftDetails.imgUrl" alt="" class="pic fl">
-                <div class="flex flex-direction padding-lr bg-white">
-                    <div class="flex flex-row align-center justify-between" style="height: 36px;">
-                        <div>
-                            <span class="text-sxl text-orangeDark text-bold">{{giftDetails.price}}</span>
-                            <span class="text-orangeDark text-sm">金豆</span>
-                            <span class="text-sm margin-left text-through text-gray text-price">{{giftDetails.marketPrice}}</span>
+        <div class="box-centent">
+            <div class="header">
+                <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
+                    <template #left>
+                        <img src="../../assets/images/back.png" alt="" class="back-icon">
+                    </template>
+                </van-nav-bar>
+            </div>
+            <div style="margin-bottom: 48px;">
+                <div class="content">
+                    <img :src="giftDetails.imgUrl" alt="" class="pic fl">
+                    <div class="flex flex-direction padding-lr bg-white">
+                        <div class="flex flex-row align-center justify-between" style="height: 36px;">
+                            <div>
+                                <span class="text-sxl text-orangeDark text-bold">{{giftDetails.price}}</span>
+                                <span class="text-orangeDark text-sm">金豆</span>
+                                <span class="text-sm margin-left text-through text-gray text-price">{{giftDetails.marketPrice}}</span>
+                            </div>
+                            <div class="text-sm text-gray">库存<span class="margin-left-xs">{{giftDetails.balance}}</span></div>
                         </div>
-                        <div class="text-sm text-gray">库存<span class="margin-left-xs">{{giftDetails.balance}}</span></div>
+                        <div class="text-cut_line_2 text-df padding-bottom-sm">{{giftDetails.giftName}}</div>
                     </div>
-                    <div class="text-cut_line_2 text-df padding-bottom-sm">{{giftDetails.giftName}}</div>
-                </div>
-                <div class="flex flex-direction padding-lr bg-white margin-top-sm">
-                    <div class="margin-bottom margin-top" style="height: 18px;line-height: 18px;"><span class="text-df text-blackDark">礼品介绍</span><img src="../../assets/images/dot.png" alt="" class="dot"></div>
-                    <p class="text-xs text-darkGray margin-bottom">{{giftDetails.introduction}}</p>
-                </div>
-                <div class="flex flex-direction padding-lr bg-white margin-tb-sm">
-                    <div class="margin-bottom margin-top" style="height: 18px;line-height: 18px;"><span class="text-df text-blackDark">详细说明</span><img src="../../assets/images/dot.png" alt="" class="dot"></div>
-                    <p class="text-xs text-darkGray margin-bottom">{{giftDetails.remark}}</p>
+                    <div class="flex flex-direction padding-lr bg-white margin-top-sm">
+                        <div class="margin-bottom margin-top" style="height: 18px;line-height: 18px;"><span class="text-df text-blackDark">礼品介绍</span><img src="../../assets/images/dot.png" alt="" class="dot"></div>
+                        <p class="text-xs text-darkGray margin-bottom">{{giftDetails.introduction}}</p>
+                    </div>
+                    <div class="flex flex-direction padding-lr bg-white margin-tb-sm">
+                        <div class="margin-bottom margin-top" style="height: 18px;line-height: 18px;"><span class="text-df text-blackDark">详细说明</span><img src="../../assets/images/dot.png" alt="" class="dot"></div>
+                        <p class="text-xs text-darkGray margin-bottom">{{giftDetails.remark}}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,7 +53,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapState,mapMutations } from 'vuex'
     import { getCookie, setCookie, removeCookie } from '@/utils/auth'
     export default {
         name: 'exchangeGoodsDetails',

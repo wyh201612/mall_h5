@@ -1,10 +1,6 @@
 ## vue-mobile-h5
 项目基于vue-cli3.0进行搭建，并使用了vue全家桶vue vuex axios vue-router vant
-
-
- ### <a target="_blank" href="http://47.114.61.247:19019">线上预览地址</a>
   
-
 #### 脚手架版本:
  *vue-cli-3.0
  

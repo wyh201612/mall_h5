@@ -647,8 +647,13 @@
 }
 
 .bg-gray {
-    background-color: #f0f0f0;
-    color: var(--black);
+    background-color: var(--gray);
+    color: var(--white);
+}
+
+.bg-darkGray {
+    color: var(--white);
+    background-color: var(--darkGray);
 }
 
 .bg-black {
@@ -928,6 +933,10 @@
     font-size: 22px;
 }
 
+.text-xxll {
+    font-size: 24px;
+}
+
 .text-sxl {
     font-size: 28px;
 }
@@ -938,6 +947,10 @@
 
 .text-sxxlm {
     font-size: 32px;
+}
+
+.text-sxxll {
+    font-size: 34px;
 }
 
 .text-sxxxl {

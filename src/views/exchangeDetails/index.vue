@@ -1,39 +1,41 @@
 <template>
     <div class="exchangeDetails dashboard-container flex flex-direction">
-        <div class="header">
-            <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
-                <template #left>
-                    <img src="../../assets/images/back.png" alt="" class="back-icon">
-                </template>
-                <template #title>
-                    <span class="text-sm text-darkGray">兑换明细</span>
-                </template>
-            </van-nav-bar>
-        </div>
-        <div class="contaier">
-            <van-pull-refresh v-model="isLoading" @refresh="onRefresh" success-text="刷新成功" head-height='50'>
-                <template #loading>
-                    <img class="refresh-icon" src="../../assets/images/refresh-icon.png" />
-                </template>
-                <div class="content padding-lr">
-                    <div class="gold flex flex-direction">
-                        <div class="item-list bg-white flex flex-row">
-                            <router-link :to="{path: '/exchangeInDetails'}" class="flex flex-row">
-                                <div class="left-img" style="margin-right: 8px;">
-                                    <img src="../../assets/images/goldenCenter/calendar.png" alt="">
-                                </div>
-                                <div class="flex-sub flex flex-direction justify-between">
-                                    <p class="text-sm text-blackDark text-cut_line_2">商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名…</p>
-                                    <div class="item-bottom flex flex-row align-center justify-between">
-                                        <div class="text-sm text-orangeDark"><span style="margin-right: 6px;">20金豆</span><span class="text-bold">兑换成功</span></div>
-                                        <div><img src="../../assets/images/right.png" alt="" class="right-icon"></div>
+        <div class="box-centent">
+            <div class="header">
+                <van-nav-bar class="bg-transparent" :border='false' @click-left='goBack()'>
+                    <template #left>
+                        <img src="../../assets/images/back.png" alt="" class="back-icon">
+                    </template>
+                    <template #title>
+                        <span class="text-sm text-blackDark text-df text-bold">兑换明细</span>
+                    </template>
+                </van-nav-bar>
+            </div>
+            <div class="contaier">
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh" success-text="刷新成功" head-height='50'>
+                    <template #loading>
+                        <img class="refresh-icon" src="../../assets/images/refresh-icon.png" />
+                    </template>
+                    <div class="content padding-lr">
+                        <div class="gold flex flex-direction">
+                            <div class="item-list bg-white flex flex-row">
+                                <router-link :to="{path: '/exchangeInDetails'}" class="flex flex-row">
+                                    <div class="left-img" style="margin-right: 8px;">
+                                        <img src="../../assets/images/goldenCenter/calendar.png" alt="">
                                     </div>
-                                </div>
-                            </router-link>
+                                    <div class="flex-sub flex flex-direction justify-between">
+                                        <p class="text-sm text-blackDark text-cut_line_2">商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名…</p>
+                                        <div class="item-bottom flex flex-row align-center justify-between">
+                                            <div class="text-sm text-orangeDark"><span style="margin-right: 6px;">20金豆</span><span class="text-bold">兑换成功</span></div>
+                                            <div><img src="../../assets/images/right.png" alt="" class="right-icon"></div>
+                                        </div>
+                                    </div>
+                                </router-link>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </van-pull-refresh>
+                </van-pull-refresh>
+            </div>
         </div>
     </div>
 </template>
